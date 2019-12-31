@@ -72,7 +72,7 @@ public class MainWindow {
         frame.add(playerPlaceholder, BorderLayout.NORTH);
         frame.add(timelinePlaceholder, BorderLayout.SOUTH);
         
-        frame.pack();
+        //frame.pack();
         frame.setLocationRelativeTo(null);
     }
 
