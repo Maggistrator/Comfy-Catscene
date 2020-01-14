@@ -1,5 +1,7 @@
 package experimantal;
 
+import ui.KindOfWindow;
+
 /**
  * @author SOVA
  */

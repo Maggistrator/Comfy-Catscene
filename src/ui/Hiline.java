@@ -1,4 +1,4 @@
-package experimantal;
+package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;

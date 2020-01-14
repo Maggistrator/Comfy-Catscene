@@ -1,4 +1,4 @@
-package experimantal;
+package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 /**
- *
  * @author Sova
  */
 public class KindOfWindow {
@@ -42,8 +41,6 @@ public class KindOfWindow {
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tldr();
-        //tuneLayout(frame); 
-        frame.setVisible(true);
     }
     
     private void buildModeToolbar(){
@@ -97,5 +94,13 @@ public class KindOfWindow {
         ffpc.gridy = 1;
         ffpc.insets = new Insets(0, 0, 5, 5);
         frame.add(fileFunctionsPanel, ffpc);
+    }
+    
+    public void show(){
+        frame.setVisible(true);
+    }
+    
+    public void hide(){
+        frame.setVisible(false);
     }
 }

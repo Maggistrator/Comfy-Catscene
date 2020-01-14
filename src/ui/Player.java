@@ -1,4 +1,4 @@
-package experimantal;
+package ui;
 
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
