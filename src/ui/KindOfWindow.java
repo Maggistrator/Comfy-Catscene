@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
  * @author Sova
  */
 public class KindOfWindow {
-    JFrame frame = new JFrame("yay");
+    JFrame frame = new JFrame("Comfy Catscene");
     Player player = new Player();
     Hiline hiline = new Hiline();
     JPanel modePanel = new JPanel();
