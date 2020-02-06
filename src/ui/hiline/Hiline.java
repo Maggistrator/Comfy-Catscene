@@ -1,4 +1,4 @@
-package ui;
+package ui.hiline;
 
 import java.awt.Color;
 import java.awt.Dimension;

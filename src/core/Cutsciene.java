@@ -22,8 +22,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import core.TrueTypeFont;
-
 /**
  * Класс катсцены.
  * <br>Позволяет создавать ролики из отдельных <i>изображений, анимаций, музыки, и звуков</i>

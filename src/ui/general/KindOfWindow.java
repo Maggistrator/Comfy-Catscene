@@ -1,31 +1,50 @@
-package ui;
+package ui.general;
 
-import java.awt.BorderLayout;
+import ui.player.Player;
+import ui.hiline.Hiline;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import org.newdawn.slick.SlickException;
+import ui.player.SlickSandbox;
 
 /**
+ * НАПОМИНАЛКА: Использовать для редактора XML библиотеку rsyntaxtextarea 
+ * из BeardedSorcererIDE, чтобы она была сразу с подсветкой синтаксиса
+ * 
  * @author Sova
  */
-public class KindOfWindow {
-    JFrame frame = new JFrame("Comfy Catscene");
-    Player player = new Player();
-    Hiline hiline = new Hiline();
-    JPanel modePanel = new JPanel();
-    JPanel fileFunctionsPanel = new JPanel();
+public class KindOfWindow {    
+    JFrame frame = new JFrame("Comfy Catscene");    //Главное окно программы
+    Player player;                                  //Slick2D-холст предпросмотра
+    Hiline hiline = new Hiline();                   //Hilight+Timline - имитатор таймлайна
+    JPanel modePanel = new JPanel();                //Панель режима программы, на данный момент доступны "авто"(через таймлайн), и "редактор XML"
+    JPanel fileFunctionsPanel = new JPanel();    
+    SlickSandbox game = new SlickSandbox("Sandbox");
+
     
-    public KindOfWindow() {   
+    public KindOfWindow() {        
+        try {
+            player = new Player(game);
+            player.play();
+        } catch (SlickException ex) {
+            JOptionPane.showMessageDialog(frame, "Slick не работает, предпросмотр отвалился");
+        }
+        
         frame.setSize(640, 480);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new GridBagLayout());  
@@ -38,13 +57,19 @@ public class KindOfWindow {
         fileFunctionsPanel.setLayout(new BoxLayout(fileFunctionsPanel, BoxLayout.Y_AXIS));
         modePanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         fileFunctionsPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        player.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         hiline.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         modePanel.setLayout(new BoxLayout(modePanel, BoxLayout.Y_AXIS));
         modePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         fileFunctionsPanel.setAlignmentX(JPanel.LEFT_ALIGNMENT);
         
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Slick не позволяет закрыть окно через EXIT_ON_CLOSE, и этот слушатель выполняет его работу
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.exit(0);
+            }
+        });
         tldr();
     }
     

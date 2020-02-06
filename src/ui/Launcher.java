@@ -1,5 +1,6 @@
 package ui;
 
+import ui.general.KindOfWindow;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
