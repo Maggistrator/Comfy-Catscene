@@ -17,7 +17,6 @@ public class Launcher {
         setLoolAndFeelDecorated();
         SwingUtilities.invokeLater(() -> {
             KindOfWindow mw = new KindOfWindow();
-
             mw.show();
         });
     }

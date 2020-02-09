@@ -9,8 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -32,12 +30,13 @@ public class KindOfWindow {
     JFrame frame = new JFrame("Comfy Catscene");    //Главное окно программы
     Player player;                                  //Slick2D-холст предпросмотра
     Hiline hiline = new Hiline();                   //Hilight+Timline - имитатор таймлайна
-    JPanel modePanel = new JPanel();                //Панель режима программы, на данный момент доступны "авто"(через таймлайн), и "редактор XML"
-    JPanel fileFunctionsPanel = new JPanel();    
-    SlickSandbox game = new SlickSandbox("Sandbox");
+    JPanel modePanel = new JPanel();                //Панель управления режимами программы
+    JPanel fileFunctionsPanel = new JPanel();       //Панель файловых операций, таких как сохранение или загрузка 
+    SlickSandbox game = new SlickSandbox("Sandbox");//Slick2D-игра, управляющая нативной отрисовкой Slick2D-контейнера "player"
 
     
-    public KindOfWindow() {        
+    public KindOfWindow() {
+        //Плеер начинает отрисовку с момента старта программы
         try {
             player = new Player(game);
             player.play();
@@ -45,11 +44,13 @@ public class KindOfWindow {
             JOptionPane.showMessageDialog(frame, "Slick не работает, предпросмотр отвалился");
         }
         
+        //Настройка параметров окна
         frame.setSize(640, 480);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new GridBagLayout());  
         frame.setMinimumSize(new Dimension(640, 480));
        
+        //функции настройки панелей
         buildModeToolbar();
         buildFileFunctionsToolbar();
         
@@ -70,10 +71,13 @@ public class KindOfWindow {
                 System.exit(0);
             }
         });
-        tldr();
+        configureLayout();
     }
     
     private void buildModeToolbar(){
+        //TODO: подумать, следует ли выделять построение панелей в функции - не будет ли правильнее 
+        //сделать всё в конструкторе, благо методы совсем небольшие
+        //Или же стоит выделить настройку главного окна, плеера и таймлайна так же отдельными функциями?
         JButton table = new JButton(new ImageIcon("sys/timeline.png"));
         JButton source = new JButton(new ImageIcon("sys/code.png"));
         table.setToolTipText("Эта кнопка переключает редактор в режим работы с таймлайном");
@@ -91,7 +95,8 @@ public class KindOfWindow {
         fileFunctionsPanel.add(imp);
     }
     
-    private void tldr(){
+    private void configureLayout(){
+        //Расположение плеера
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
@@ -102,6 +107,7 @@ public class KindOfWindow {
         c.gridwidth = 3;
         frame.add(player, c);
         
+        //Конфигурируем панель управления режимами
         GridBagConstraints mpc = new GridBagConstraints();
         mpc.fill = GridBagConstraints.VERTICAL;
         mpc.gridx = 0;
@@ -110,6 +116,7 @@ public class KindOfWindow {
         mpc.insets = new Insets(0, 10, 10, 0);
         frame.add(modePanel, mpc);
         
+        //Конфигурируем таймлайн
         GridBagConstraints tlpc = new GridBagConstraints();
         tlpc.fill = GridBagConstraints.BOTH;
         tlpc.gridx = 1;
@@ -119,6 +126,7 @@ public class KindOfWindow {
         tlpc.insets = new Insets(0, 0, 10, 0);
         frame.add(hiline, tlpc);
         
+        //Конфигурируем панель файловых функций
         GridBagConstraints ffpc = new GridBagConstraints();
         ffpc.fill = GridBagConstraints.VERTICAL;
         ffpc.weightx = 0.0;
@@ -128,10 +136,16 @@ public class KindOfWindow {
         frame.add(fileFunctionsPanel, ffpc);
     }
     
+    /**
+     * Показывает главное окно
+     */
     public void show(){
         frame.setVisible(true);
     }
     
+    /**
+     * Скрывает главное окно
+     */
     public void hide(){
         frame.setVisible(false);
     }
