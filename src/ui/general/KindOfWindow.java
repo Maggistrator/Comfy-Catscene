@@ -68,6 +68,7 @@ public class KindOfWindow {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
+                player.stop();
                 System.exit(0);
             }
         });

@@ -1,11 +1,10 @@
 package ui.player;
 
 import java.awt.Dimension;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.Game;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 /**

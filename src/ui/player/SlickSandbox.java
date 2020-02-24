@@ -1,7 +1,7 @@
 package ui.player;
 
-import core.Cutsciene;
-import core.TrueTypeFont;
+import com.catscene.code.Cutsciene;
+import com.catscene.core.TrueTypeFont;
 import java.awt.Font;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
