@@ -7,13 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Menu;
-import java.awt.MenuBar;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,11 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.border.EtchedBorder;
 import org.newdawn.slick.SlickException;
 import ui.player.SlickSandbox;
@@ -55,18 +47,11 @@ public class KindOfWindow {
         menu = new JMenuBar();
         game = new SlickSandbox("Sandbox");
         //Плеер начинает отрисовку с момента старта программы
-        SwingWorker paralelle = new SwingWorker() {
-            @Override
-            protected Object doInBackground() throws Exception {
-            try {
-                player = new Player(game);
-                return player;
-            } catch (SlickException | NullPointerException ex) {
-                JOptionPane.showMessageDialog(frame, "Slick не работает, предпросмотр отвалился");
-            }
-                return null;
-            }
-        };
+        try {
+            player = new Player(game);
+        } catch (SlickException | NullPointerException ex) {
+            JOptionPane.showMessageDialog(frame, "Slick не работает, предпросмотр отвалился");
+        }
         if(player != null) 
                 player.play();
         else System.out.println("suck my cock");
